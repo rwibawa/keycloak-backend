@@ -1,0 +1,42 @@
+{
+  "name": "keycloak-backend",
+  "version": "1.0.0",
+  "description": "keycloak microservice",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node_modules/.bin/nodemon src/app.js --exec babel-node --presets @babel/preset-env",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist; ./node_modules/.bin/babel src --out-dir dist",
+    "serve": "node dist/app.js"
+  },
+  "author": "Ryan Wibawa <ryan.wibawa@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "nodemon": "^1.19.4"
+  },
+  "dependencies": {
+    "core-js": "^2.6.10",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "file-matcher": "^1.3.0",
+    "keycloak-connect": "^7.0.1",
+    "swagger-jsdoc": "^3.4.0",
+    "swagger-ui-express": "^4.1.2",
+    "winston": "^3.2.1"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "js",
+    "ignore": [
+      "*.spec.ts"
+    ],
+    "delay": "3"
+  }
+}

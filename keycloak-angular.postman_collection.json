@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "2847f7c0-01e0-4776-bba5-c21f330ed20d",
+		"name": "keycloak-angular",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get_token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2fbf47b8-cca4-4992-8c35-38222354221b",
+						"exec": [
+							"if (responseCode.code !== 200) {",
+							"    return;",
+							"}",
+							"",
+							"var data = JSON.parse(responseBody);",
+							"",
+							"_.forEach(data, function(value, key) {",
+							"  postman.setEnvironmentVariable(key, value);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "keycloak-heroes-api",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "rwibawa",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Ch@ng3M3!",
+							"type": "text"
+						},
+						{
+							"key": "totp",
+							"value": "038983",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8088/auth/realms/keycloak-angular/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"auth",
+						"realms",
+						"keycloak-angular",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_refresh-token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2fbf47b8-cca4-4992-8c35-38222354221b",
+						"exec": [
+							"if (responseCode.code !== 200) {",
+							"    return;",
+							"}",
+							"",
+							"var data = JSON.parse(responseBody);",
+							"",
+							"_.forEach(data, function(value, key) {",
+							"  postman.setEnvironmentVariable(key, value);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "keycloak-heroes-api",
+							"type": "text"
+						},
+						{
+							"key": "refresh_token",
+							"value": "{{refresh_token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8088/auth/realms/keycloak-angular/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"auth",
+						"realms",
+						"keycloak-angular",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_admin",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_type}} {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8088/auth/admin/realms/master",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"auth",
+						"admin",
+						"realms",
+						"master"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/dota-heroes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_type}} {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/dota-heroes?search=str",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"dota-heroes"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "str"
+						},
+						{
+							"key": "limit",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/amiibos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token_type}} {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/amiibos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"amiibos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
