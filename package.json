@@ -7,7 +7,8 @@
     "start": "node_modules/.bin/nodemon src/app.js --exec babel-node --presets @babel/preset-env",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist; ./node_modules/.bin/babel src --out-dir dist",
-    "serve": "node dist/app.js"
+    "serve": "node dist/app.js",
+    "debug": "node_modules/.bin/nodemon src/app.js --exec babel-node --presets @babel/preset-env --nolazy --inspect-brk=9229 dist/app.js"
   },
   "author": "Ryan Wibawa <ryan.wibawa@gmail.com>",
   "license": "MIT",

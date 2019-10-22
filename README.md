@@ -73,3 +73,33 @@ $ vi src/core/config/app.config.js
 $ vi src/app.js
 $ vi .babelrc
 ```
+
+## 4. VSCode Debugger
+* Click Debugger
+* Select **NPM Debug** from the drop-down list
+* Click **Run** icon
+![VSCode Debugger](./docs/VSCodeDebugger.jpg)
+
+### [Debugger Setup](https://code.visualstudio.com/docs/nodejs/nodejs-debugging)
+1. Click Debugger
+2. Select **Add Configuration..** from the drop-down list. It will create `.vscode/launch.json` config file.
+3. Add this to the *configurations* section:
+```json
+{
+    "type": "node",
+    "request": "launch",
+    "name": "NPM Debug",
+    "runtimeExecutable": "npm",
+    "runtimeArgs": [
+        "run-script",
+        "debug"
+    ],
+    "port": 9229
+}
+```
+4. Add this script in the *scripts* section of `package.json`:
+```json
+"scripts": {
+    "debug": "node_modules/.bin/nodemon src/app.js --exec babel-node --presets @babel/preset-env --nolazy --inspect-brk=9229 dist/app.js"
+}
+```
